@@ -1,9 +1,43 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { recipes } from '../data/recipes';
+import { fetchRecipeById } from '../services/api';
+import { recipes as dummyRecipes } from '../data/recipes'; // Keep dummy data for now
 
 function RecipeDetail() {
   const { id } = useParams();
-  const recipe = recipes.find(r => r.id === parseInt(id));
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadRecipe = async () => {
+      setLoading(true);
+      try {
+        // Comment this out until API is ready
+        // const data = await fetchRecipeById(id);
+        // setRecipe(data);
+        
+        // Using dummy data for now
+        const dummyRecipe = dummyRecipes.find(r => r.id === parseInt(id));
+        setRecipe(dummyRecipe);
+      } catch (err) {
+        setError('Failed to load recipe details');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRecipe();
+  }, [id]);
+
+  if (loading) {
+    return <div className="recipe-detail">Loading recipe...</div>;
+  }
+
+  if (error) {
+    return <div className="recipe-detail">Error: {error}</div>;
+  }
 
   if (!recipe) {
     return (

@@ -1,7 +1,39 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { recipes } from '../data/recipes';
+import { fetchRecipes } from '../services/api';
+import { recipes as dummyRecipes } from '../data/recipes'; // Keep dummy data for now
 
 function RecipeList() {
+  const [recipes, setRecipes] = useState(dummyRecipes);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadRecipes = async () => {
+      setLoading(true);
+      try {
+        // Comment this out until API is ready
+        // const data = await fetchRecipes();
+        // setRecipes(data);
+      } catch (err) {
+        setError('Failed to load recipes');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRecipes();
+  }, []);
+
+  if (loading) {
+    return <div className="recipe-list">Loading recipes...</div>;
+  }
+
+  if (error) {
+    return <div className="recipe-list">Error: {error}</div>;
+  }
+
   return (
     <div className="recipe-list">
       <h1>My Recipe Collection</h1>
