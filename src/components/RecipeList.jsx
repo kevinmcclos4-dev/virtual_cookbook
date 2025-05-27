@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchRecipes } from '../services/api';
-import { recipes as dummyRecipes } from '../data/recipes'; // Keep dummy data for now
 
 function RecipeList() {
-  const [recipes, setRecipes] = useState(dummyRecipes);
+  const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -12,9 +11,8 @@ function RecipeList() {
     const loadRecipes = async () => {
       setLoading(true);
       try {
-        // Comment this out until API is ready
-        // const data = await fetchRecipes();
-        // setRecipes(data);
+        const data = await fetchRecipes();
+        setRecipes(data);
       } catch (err) {
         setError('Failed to load recipes');
         console.error(err);
@@ -40,7 +38,7 @@ function RecipeList() {
       <div className="recipe-grid">
         {recipes.map((recipe) => (
           <Link to={`/recipe/${recipe.id}`} key={recipe.id} className="recipe-card">
-            <h2>{recipe.name}</h2>
+            <h2>{recipe.title}</h2>
           </Link>
         ))}
       </div>

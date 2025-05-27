@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchRecipeById } from '../services/api';
-import { recipes as dummyRecipes } from '../data/recipes'; // Keep dummy data for now
 
 function RecipeDetail() {
   const { id } = useParams();
@@ -13,13 +12,8 @@ function RecipeDetail() {
     const loadRecipe = async () => {
       setLoading(true);
       try {
-        // Comment this out until API is ready
-        // const data = await fetchRecipeById(id);
-        // setRecipe(data);
-        
-        // Using dummy data for now
-        const dummyRecipe = dummyRecipes.find(r => r.id === parseInt(id));
-        setRecipe(dummyRecipe);
+        const data = await fetchRecipeById(id);
+        setRecipe(data);
       } catch (err) {
         setError('Failed to load recipe details');
         console.error(err);
@@ -51,7 +45,12 @@ function RecipeDetail() {
   return (
     <div className="recipe-detail">
       <Link to="/" className="back-link">← Back to Recipe List</Link>
-      <h1>{recipe.name}</h1>
+      <h1>{recipe.title}</h1>
+      
+      <div className="recipe-meta">
+        <span className="protein">Protein: {recipe.protein}</span>
+        <span className="category">Category: {recipe.category}</span>
+      </div>
       
       <section className="ingredients">
         <h2>Ingredients</h2>
