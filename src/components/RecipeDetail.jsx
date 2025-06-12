@@ -52,11 +52,11 @@ function RecipeDetail() {
         <span className="category">Category: {recipe.category}</span>
       </div>
       
-      <section className="steps">
-        <h2>Steps</h2>
+      <section className="ingredients">
+        <h2>Ingredients</h2>
         <ul>
-          {recipe.steps.map((step, index) => (
-            <li key={index}>{step}</li>
+          {recipe.ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
           ))}
         </ul>
       </section>
