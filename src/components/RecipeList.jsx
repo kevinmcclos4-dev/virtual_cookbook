@@ -34,7 +34,12 @@ function RecipeList() {
 
   return (
     <div className="recipe-list">
-      <h1>My Recipe Collection</h1>
+      <div className="recipe-header">
+        <h1>My Recipe Collection</h1>
+        <Link to="/add-recipe" className="add-recipe-button">
+          Add Recipe
+        </Link>
+      </div>
       <div className="recipe-grid">
         {recipes.map((recipe) => (
           <Link to={`/recipe/${recipe.id}`} key={recipe.id} className="recipe-card">
