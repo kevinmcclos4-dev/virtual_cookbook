@@ -62,7 +62,7 @@ function RecipeDetail() {
       </section>
 
       <section className="steps">
-        <h2>Instructions</h2>
+        <h2>Steps</h2>
         <ol>
           {recipe.steps.map((step, index) => (
             <li key={index}>{step}</li>
