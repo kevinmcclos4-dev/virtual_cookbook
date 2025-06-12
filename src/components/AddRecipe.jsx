@@ -33,7 +33,7 @@ function AddRecipe() {
     try {
       await saveRecipe({
         title: preview.title,
-        ingredients: preview.ingredients,
+        steps: preview.steps,
         instructions: preview.instructions
       });
       navigate('/'); // Redirect to recipe list after successful save
@@ -77,10 +77,10 @@ function AddRecipe() {
           <div className="recipe-preview">
             <h2>{preview.title}</h2>
             
-            <h3>Ingredients</h3>
+            <h3>Steps</h3>
             <ul>
-              {preview.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
+              {preview.steps.map((step, index) => (
+                <li key={index}>{step}</li>
               ))}
             </ul>
 
